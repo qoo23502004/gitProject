@@ -17,14 +17,13 @@ key ="GF1QZWAA0819JA8M"  # Thingspeak channel to update
 
 def thermometer():
     while True: 
-
-
-
+        #Read data from Serial Port and split the string
         string=ser.readline()
         nodeNumber=string.split(" ")[0]
         X=string.split(" ")[1]
         Y=string.split(" ")[2]
 
+        #set the condition for string and upload date to thingspeak
         if nodeNumber=="1":
 
             node1x=X
@@ -47,11 +46,7 @@ def thermometer():
             node4y=Y
             params = urllib.urlencode({'field7':node4x , 'field8':node4y , 'key':key})
 
-
-        
-
-        
-        
+        #connection settings
         headers = {"Content-typZZe": "application/x-www-form-urlencoded","Accept": "text/plain"}
         conn = httplib.HTTPConnection("140.127.194.107:3000")
         try:
@@ -61,7 +56,7 @@ def thermometer():
         except:
             print ("connection failed")
         break
-#sleep for desired amount of time
+#Running the function
 if __name__ == "__main__":
         while True:
                 thermometer()
